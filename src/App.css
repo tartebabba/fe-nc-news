@@ -40,3 +40,14 @@
   margin: 10px;
   background-color: white;
 }
+
+#article-container {
+  background-color: rgb(26, 26, 26);
+  padding: 10px
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
