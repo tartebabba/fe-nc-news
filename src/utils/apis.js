@@ -13,9 +13,9 @@ export function getTenMostRecentArticles() {
 
 export function getArticles(params) {
   let query = buildQueryString(params);
-  console.log(query);
+  console.log(baseURL + 'articles?');
   return axios
-    .get(`https://fakeddit.onrender.com/api/articles?${query}`)
+    .get(`${baseURL}articles?${query}`)
     .then(({ data }) => {
       return data;
     })
