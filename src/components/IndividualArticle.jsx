@@ -1,4 +1,5 @@
 import LoadingScreen from './Screens';
+import Comments from './Comments';
 import { useState, useEffect } from 'react';
 import { getSingleArticle } from '../utils/apis';
 import { useParams } from 'react-router-dom';
@@ -48,7 +49,7 @@ export default function ArticleView() {
         <p>Votes: {votes}</p>
       </div>
       <div>
-        <Comments />
+        <Comments id={id} />
       </div>
     </>
   );

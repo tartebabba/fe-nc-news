@@ -21,13 +21,22 @@ export function getArticles(params) {
     .catch((err) => console.log(err, 'all articles'));
 }
 
-export function getSingleArticle({article_id}) {
+export function getSingleArticle({ article_id }) {
   return axios
-  .get(`${baseURL}articles/${article_id}`)
-  .then(({ data }) => {
-    return data;
-  })
-  .catch((err) => console.log(err, 'individual article'));
+    .get(`${baseURL}articles/${article_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+}
+
+export function getArticleComments({ article_id }) {
+  return axios
+    .get(`${baseURL}articles/${article_id}/comments`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
 }
 
 
