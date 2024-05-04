@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getArticleComments } from '../utils/apis';
+import moment from 'moment';
 
 export default function Comments({ id }) {
   const [articleComments, setArticleComments] = useState([]);
@@ -12,12 +13,16 @@ export default function Comments({ id }) {
     //
   }, []);
   return (
-    <div className="comment-cards">
-      <h3>Comments</h3>
-      {articleComments.map((comment) => (
-        <Comment comment={comment} key={comment.comment_id} />
-      ))}
-    </div>
+    <>
+      <div>
+        <h3>Comments</h3>
+      </div>
+      <div className="comment-cards">
+        {articleComments.map((comment) => (
+          <Comment comment={comment} key={comment.comment_id} />
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -25,8 +30,9 @@ function Comment({ comment }) {
   const { comment_id, votes, created_at, author, body, article_id } = comment;
   return (
     <div className="comment-card">
-      <p>{created_at}</p>
-      <p>{author}</p>
+      <p>
+        {moment(created_at).format('MMMM Do YYYY')} - <span>u/{author}</span>
+      </p>
       <p>{body}</p>
     </div>
   );

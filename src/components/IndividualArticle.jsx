@@ -46,9 +46,10 @@ export default function ArticleView() {
         <h5>by {author}</h5>
         <img src={article_img_url} alt="Description of the image" />
         <p>{body}</p>
-        <p>Comment: {comment_count}</p>
-        <p>Votes: {votes}</p>
-        <ArticleActions currentArticle={currentArticle} />
+        <ArticleActions
+          currentArticle={currentArticle}
+          setCurrentArticle={setCurrentArticle}
+        />
       </div>
       <div>
         <Comments id={id} />
