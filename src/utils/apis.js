@@ -40,6 +40,15 @@ export function getArticleComments({ article_id }, params) {
     .catch((err) => console.log(err));
 }
 
+export function patchArticleByID(article_id, voteChange) {
+  const patchBody = { article_id: article_id, inc_votes: voteChange };
+  return axios
+    .patch(`${baseURL}articles/${article_id}`, patchBody)
+    .then(({ data }) => {
+      return data;
+    });
+}
+
 
 // HELPER FUNCTIONS
 function buildQueryString(params) {
