@@ -30,9 +30,10 @@ export function getSingleArticle({ article_id }) {
     .catch((err) => console.log(err));
 }
 
-export function getArticleComments({ article_id }) {
+export function getArticleComments({ article_id }, params) {
+  let query = buildQueryString(params);
   return axios
-    .get(`${baseURL}articles/${article_id}/comments`)
+    .get(`${baseURL}articles/${article_id}/comments?${query}`)
     .then(({ data }) => {
       return data;
     })
