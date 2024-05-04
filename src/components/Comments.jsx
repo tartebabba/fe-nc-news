@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getArticleComments } from '../utils/apis';
 
 export default function Comments({ id }) {
-  // Does this need to be even in a state?
   const [articleComments, setArticleComments] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
 
@@ -12,7 +11,6 @@ export default function Comments({ id }) {
     });
     //
   }, []);
-  // console.log(articleComments);
   return (
     <div className="comment-cards">
       <h3>Comments</h3>

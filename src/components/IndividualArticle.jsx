@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getSingleArticle } from '../utils/apis';
 import { useParams } from 'react-router-dom';
 import { Breadcrumb } from 'react-bootstrap';
+import { ArticleActions } from './Actions';
 
 export default function ArticleView() {
   const [currentArticle, setCurrentArticle] = useState({});
@@ -47,6 +48,7 @@ export default function ArticleView() {
         <p>{body}</p>
         <p>Comment: {comment_count}</p>
         <p>Votes: {votes}</p>
+        <ArticleActions currentArticle={currentArticle} />
       </div>
       <div>
         <Comments id={id} />
