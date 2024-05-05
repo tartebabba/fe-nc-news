@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getArticleComments } from '../utils/apis';
 import moment from 'moment';
+import SubmitComment from './SubmitComment';
 
 export default function Comments({ id }) {
   const [articleComments, setArticleComments] = useState([]);
@@ -16,6 +17,7 @@ export default function Comments({ id }) {
     <>
       <div>
         <h3>Comments</h3>
+        <SubmitComment />
       </div>
       <div className="comment-cards">
         {articleComments.map((comment) => (
