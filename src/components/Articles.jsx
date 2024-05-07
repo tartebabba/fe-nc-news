@@ -18,14 +18,12 @@ export default function Articles() {
     switch (pathname) {
       case '/articles':
         getArticles(params).then(({ articles }) => {
-          console.log('articles');
           setArticles(articles);
           setIsLoading(false);
         });
         break;
       case '/':
         getTenMostRecentArticles().then(({ articles }) => {
-          console.log('most recent');
           setArticles(articles);
           setIsLoading(false);
         });
