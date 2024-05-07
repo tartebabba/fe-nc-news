@@ -1,19 +1,41 @@
 import { useEffect, useState } from 'react';
-import { getArticles } from '../utils/apis';
+import { getArticles, getTenMostRecentArticles } from '../utils/apis';
 import { ArticleCard } from './bootstrap';
+import LoadingScreen from './Screens';
+import { useLocation } from 'react-router-dom';
 
 export default function Articles() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
 
+  console.log(pathname);
+
   useEffect(() => {
     setIsLoading(true);
-    getArticles(params).then(({ articles }) => {
-      setArticles(articles);
-      setIsLoading(false);
-    });
+
+    switch (pathname) {
+      case '/articles':
+        getArticles(params).then(({ articles }) => {
+          console.log('articles');
+          setArticles(articles);
+          setIsLoading(false);
+        });
+        break;
+      case '/':
+        getTenMostRecentArticles().then(({ articles }) => {
+          console.log('most recent');
+          setArticles(articles);
+          setIsLoading(false);
+        });
+        break;
+
+      default:
+    }
   }, []);
+
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <div id="card-container">

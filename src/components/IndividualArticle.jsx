@@ -3,7 +3,6 @@ import Comments from './Comments';
 import { useState, useEffect } from 'react';
 import { getSingleArticle } from '../utils/apis';
 import { useParams } from 'react-router-dom';
-import { Breadcrumb } from 'react-bootstrap';
 import { ArticleActions } from './Actions';
 
 export default function ArticleView() {
