@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { comment } from 'postcss';
 
 const baseURL = 'https://fakeddit.onrender.com/api/';
 
@@ -53,6 +54,15 @@ export function patchArticleByID(article_id, voteChange) {
 export function postArticleComment({ article_id }, body) {
   return axios
     .post(`${baseURL}articles/${article_id}/comments`, body)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+}
+
+export function deleteArticleComment(comment_id) {
+  return axios
+    .delete(`${baseURL}comments/${comment_id}`)
     .then(({ data }) => {
       return data;
     })
