@@ -3,6 +3,15 @@ import { comment } from 'postcss';
 
 const baseURL = 'https://fakeddit.onrender.com/api/';
 
+export function getTopics() {
+  return axios
+    .get(`${baseURL}topics/`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+}
+
 export function getTenMostRecentArticles() {
   return axios
     .get(`${baseURL}articles/`)
