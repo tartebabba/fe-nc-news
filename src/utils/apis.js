@@ -4,7 +4,7 @@ const baseURL = 'https://fakeddit.onrender.com/api/';
 
 export function getTenMostRecentArticles() {
   return axios
-    .get(`https://fakeddit.onrender.com/api/articles/`)
+    .get(`${baseURL}articles/`)
     .then(({ data }) => {
       return data;
     })
@@ -46,9 +46,18 @@ export function patchArticleByID(article_id, voteChange) {
     .patch(`${baseURL}articles/${article_id}`, patchBody)
     .then(({ data }) => {
       return data;
-    });
+    })
+    .catch((err) => console.log(err));
 }
 
+export function postArticleComment({ article_id }, body) {
+  return axios
+    .post(`${baseURL}articles/${article_id}/comments`, body)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+}
 
 // HELPER FUNCTIONS
 function buildQueryString(params) {

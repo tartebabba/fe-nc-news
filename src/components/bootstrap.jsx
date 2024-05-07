@@ -28,4 +28,3 @@ export function ArticleCard({ article }) {
   );
 }
 
-// [] Link individual card with user.

@@ -18,7 +18,6 @@ export default function Home() {
 
   if (isLoading) return <p>loading</p>;
 
-  // Links can be converted into components
   return (
     <div id="home">
       <div>
@@ -31,11 +30,7 @@ export default function Home() {
           {mostRecentArticles.map((article) => {
             return (
               <article className="article-card" key={article.article_id}>
-                {/* {ArticleCard(article)} */}
                 <ArticleCard article={article} />
-                {/* <img src={article.article_img_url} /> */}
-                {/* <p>{article.title}</p>
-            <p>{article.author}</p> */}
               </article>
             );
           })}
@@ -45,6 +40,3 @@ export default function Home() {
   );
 }
 
-// Home will only show top few articles.
-// Pagination should and will be routed through to articles
-// [] Create loading screen for home page.

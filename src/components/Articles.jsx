@@ -10,7 +10,6 @@ export default function Articles() {
   useEffect(() => {
     setIsLoading(true);
     getArticles(params).then(({ articles }) => {
-      console.log(articles);
       setArticles(articles);
       setIsLoading(false);
     });
@@ -22,11 +21,7 @@ export default function Articles() {
         {articles.map((article) => {
           return (
             <article className="article-card" key={article.article_id}>
-              {/* {ArticleCard(article)} */}
               <ArticleCard article={article} />
-              {/* <img src={article.article_img_url} /> */}
-              {/* <p>{article.title}</p>
-        <p>{article.author}</p> */}
             </article>
           );
         })}
