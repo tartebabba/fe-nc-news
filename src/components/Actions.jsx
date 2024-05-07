@@ -29,9 +29,7 @@ export function ArticleActions({ currentArticle, setCurrentArticle }) {
     });
   };
 
-  const goToComments = () => {
-    //
-  };
+
 
   return (
     <div>
@@ -39,7 +37,7 @@ export function ArticleActions({ currentArticle, setCurrentArticle }) {
       <button onClick={changeVoteCount}>
         Votes: {votes} {userAction.hasVoted ? `▽` : `△`}
       </button>
-      <button onClick={goToComments}>Comments: {comment_count}</button>
+      <button>Comments: {comment_count}</button>
     </div>
   );
 }

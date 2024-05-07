@@ -22,7 +22,7 @@ export default function ArticleView() {
 
   if (isLoading) return <LoadingScreen />;
 
-  // console.log(currentArticle);
+
   const {
     article_id,
     title,
@@ -38,7 +38,6 @@ export default function ArticleView() {
   return (
     <>
       <div id="article-container">
-        {/* <Breadcrumb/> */}
         <p>{article_id}</p>
         <p>{created_at}</p>
         <h1>{title}</h1>

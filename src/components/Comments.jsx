@@ -11,13 +11,12 @@ export default function Comments({ id }) {
     getArticleComments(id, params).then(({ comments }) => {
       setArticleComments(comments);
     });
-    //
   }, []);
   return (
     <>
       <div>
         <h3>Comments</h3>
-        <SubmitComment />
+        <SubmitComment id={id} />
       </div>
       <div className="comment-cards">
         {articleComments.map((comment) => (
