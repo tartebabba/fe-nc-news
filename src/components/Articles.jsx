@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getArticles, getTenMostRecentArticles } from '../utils/apis';
 import { ArticleCard } from './bootstrap';
 import LoadingScreen from './Screens';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 export default function Articles(props) {
   const { filter } = props;
@@ -11,10 +11,18 @@ export default function Articles(props) {
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
 
+  let [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     setParams((currParams) => {
       return { ...currParams, ...filter, ...pageParams };
     });
+    let searchQuery = Object.entries(params)
+      .map(([key, value]) => `${key}=${value}&`)
+      .join('')
+      .slice(0, -1);
+
+    setSearchParams(searchQuery);
   }, [filter]);
 
   useEffect(() => {
