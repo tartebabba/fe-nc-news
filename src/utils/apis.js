@@ -23,7 +23,6 @@ export function getTenMostRecentArticles() {
 
 export function getArticles(params) {
   let query = buildQueryString(params);
-  console.log(`${baseURL}articles?${query}`);
   return axios
     .get(`${baseURL}articles?${query}`)
     .then(({ data }) => {

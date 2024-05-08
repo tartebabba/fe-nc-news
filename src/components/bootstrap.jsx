@@ -9,7 +9,7 @@ export function ArticleCard({ article }) {
     author,
     body,
     created_at,
-    botes,
+    votes,
     article_img_url,
     comment_count,
     article_id,
@@ -35,6 +35,7 @@ export function ArticleCard({ article }) {
         <Card.Text>{body.substring(0, 140) + '...'}</Card.Text>
 
         <Card.Link href="#"> Comments: {comment_count}</Card.Link>
+        <Card.Link href="#"> Votes: {votes}</Card.Link>
       </Card.Body>
     </Card>
   );
