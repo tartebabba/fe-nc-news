@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { postArticleComment } from '@/utils/apis';
 
-export default function SubmitComment({ id }) {
+export default function SubmitComment({ id, setUserHasPostedComment }) {
   const [newComment, setNewComment] = useState('');
   const [isCommentSuccessful, setIsCommentSuccessful] = useState(false);
 
@@ -16,10 +16,18 @@ export default function SubmitComment({ id }) {
   const submitComment = () => {
     const commentBody = { username: user, body: newComment };
 
-    postArticleComment(id, commentBody).then((res) => {
-      setIsCommentSuccessful(true);
-      setNewComment('');
-    });
+    postArticleComment(id, commentBody)
+      .then((res) => {
+        setIsCommentSuccessful(true);
+        setNewComment('');
+        setUserHasPostedComment(true);
+      })
+      .then(() => {
+        setTimeout(() => {
+          setIsCommentSuccessful(false);
+          setUserHasPostedComment(false);
+        }, 1000);
+      });
   };
 
   const clearComment = () => {

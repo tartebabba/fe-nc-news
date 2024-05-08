@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import moment from 'moment';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function ArticleCard({ article }) {
   const {
@@ -11,15 +12,25 @@ export function ArticleCard({ article }) {
     botes,
     article_img_url,
     comment_count,
+    article_id,
   } = article;
+  const navigate = useNavigate();
+  const navigateToArticle = (e) => {
+    navigate(`/articles/${article_id}`);
+  };
+
   return (
     <Card style={{ width: 'auto' }}>
-      <Card.Link href="#">u/{author}</Card.Link>
-      <Card.Link href="#">f/{topic}</Card.Link>
+      <Link to={`/users/${author}`} className="article-card-link">
+        u/{author}
+      </Link>
+      <Link to={`/topics/${topic}`} className="article-card-link">
+        f/{topic}
+      </Link>
       <Card.Subtitle className="mb-2 text-muted">
         {moment(created_at).format('MMMM Do YYYY')}
       </Card.Subtitle>
-      <Card.Body>
+      <Card.Body onClick={navigateToArticle}>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{body.substring(0, 140) + '...'}</Card.Text>
 
