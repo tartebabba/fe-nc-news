@@ -19,7 +19,10 @@ export default function Articles(props) {
 
   useEffect(() => {
     setIsLoading(true);
-    if (Object.keys(pageParams).length !== 0) {
+    if (
+      Object.keys(pageParams).length !== 0 ||
+      Object.keys(filter).length !== 0
+    ) {
       getArticles(params).then(({ articles }) => {
         setArticles(articles);
         setIsLoading(false);
