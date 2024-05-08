@@ -4,37 +4,26 @@ import { ArticleCard } from './bootstrap';
 import LoadingScreen from './Screens';
 import { useLocation } from 'react-router-dom';
 
-export default function Articles(props) {
-  const { filter } = props;
+export default function Articles() {
   const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
 
-  useEffect(() => {
-    setParams((currParams) => {
-      return { ...currParams, ...filter };
-    });
-  }, [filter]);
+  console.log(pathname);
 
   useEffect(() => {
     setIsLoading(true);
 
     switch (pathname) {
-      case '/':
-        getTenMostRecentArticles().then(({ articles }) => {
-          setArticles(articles);
-          setIsLoading(false);
-        });
-        break;
       case '/articles':
         getArticles(params).then(({ articles }) => {
           setArticles(articles);
           setIsLoading(false);
         });
         break;
-      case '/topics':
-        getArticles(params).then(({ articles }) => {
+      case '/':
+        getTenMostRecentArticles().then(({ articles }) => {
           setArticles(articles);
           setIsLoading(false);
         });
@@ -42,7 +31,7 @@ export default function Articles(props) {
 
       default:
     }
-  }, [params, pathname]);
+  }, []);
 
   if (isLoading) return <LoadingScreen />;
 

@@ -15,7 +15,6 @@ export function ArticleCard({ article }) {
   return (
     <Card style={{ width: 'auto' }}>
       <Card.Link href="#">u/{author}</Card.Link>
-      <Card.Link href="#">f/{topic}</Card.Link>
       <Card.Subtitle className="mb-2 text-muted">
         {moment(created_at).format('MMMM Do YYYY')}
       </Card.Subtitle>
