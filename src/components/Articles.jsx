@@ -2,47 +2,35 @@ import { useEffect, useState } from 'react';
 import { getArticles, getTenMostRecentArticles } from '../utils/apis';
 import { ArticleCard } from './bootstrap';
 import LoadingScreen from './Screens';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function Articles(props) {
   const { filter } = props;
-  const { pathname } = useLocation();
+  const pageParams = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
 
   useEffect(() => {
     setParams((currParams) => {
-      return { ...currParams, ...filter };
+      return { ...currParams, ...filter, ...pageParams };
     });
   }, [filter]);
 
   useEffect(() => {
     setIsLoading(true);
-
-    switch (pathname) {
-      case '/':
-        getTenMostRecentArticles().then(({ articles }) => {
-          setArticles(articles);
-          setIsLoading(false);
-        });
-        break;
-      case '/articles':
-        getArticles(params).then(({ articles }) => {
-          setArticles(articles);
-          setIsLoading(false);
-        });
-        break;
-      case '/topics':
-        getArticles(params).then(({ articles }) => {
-          setArticles(articles);
-          setIsLoading(false);
-        });
-        break;
-
-      default:
+    if (Object.keys(pageParams).length !== 0) {
+      getArticles(params).then(({ articles }) => {
+        setArticles(articles);
+        setIsLoading(false);
+      });
+    } else {
+      getTenMostRecentArticles().then(({ articles }) => {
+        setArticles(articles);
+        setIsLoading(false);
+      });
     }
-  }, [params, pathname]);
+  }, [params]);
 
   if (isLoading) return <LoadingScreen />;
 
