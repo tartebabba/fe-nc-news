@@ -33,7 +33,6 @@ export function ArticleActions({ currentArticle, setCurrentArticle }) {
 
   return (
     <div>
-      <h5>Article Actions</h5>
       <button onClick={changeVoteCount}>
         Votes: {votes} {userAction.hasVoted ? `▽` : `△`}
       </button>

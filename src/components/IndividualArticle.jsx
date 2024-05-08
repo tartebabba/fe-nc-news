@@ -2,7 +2,7 @@ import LoadingScreen from './Screens';
 import Comments from './Comments';
 import { useState, useEffect } from 'react';
 import { getSingleArticle } from '../utils/apis';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ArticleActions } from './Actions';
 import moment from 'moment';
 
@@ -39,8 +39,20 @@ export default function ArticleView() {
       <div id="article-container">
         <p>Posted on: {moment(created_at).format('MMMM Do YYYY')}</p>
         <h1>{title}</h1>
-        <h3>{topic}</h3>
-        <h5>by {author}</h5>
+        <p>
+          Posted by
+          {
+            <Link to={`/users/${author}`} className="article-card-link">
+              u/{author}
+            </Link>
+          }
+          in
+          {
+            <Link to={`/topics/${topic}`} className="article-card-link">
+              f/{topic}
+            </Link>
+          }
+        </p>
         <img src={article_img_url} alt="Description of the image" />
         <p>{body}</p>
         <ArticleActions
