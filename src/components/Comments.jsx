@@ -10,18 +10,22 @@ export default function Comments({ id }) {
   const [articleComments, setArticleComments] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
   const [userHasDeletedComment, setUserHasDeletedComment] = useState(false);
+  const [userHasPostedComment, setUserHasPostedComment] = useState(0);
 
   useEffect(() => {
     getArticleComments(id, params).then(({ comments }) => {
       setArticleComments(comments);
     });
-  }, [userHasDeletedComment]);
+  }, [userHasDeletedComment, userHasPostedComment]);
 
   return (
     <>
       <div>
         <h3>Comments</h3>
-        <SubmitComment id={id} />
+        <SubmitComment
+          id={id}
+          setUserHasPostedComment={setUserHasPostedComment}
+        />
       </div>
       <div className="comment-cards">
         {articleComments.map((comment) => (
