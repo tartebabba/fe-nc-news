@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
+
 
 export default function Sort(props) {
   const { setSortParams } = props;
@@ -30,48 +30,50 @@ export default function Sort(props) {
 
   return (
     <>
-      <Select
-        onValueChange={(value) => {
-          handleChange('sort_by', value);
-        }}
-      >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Sort by" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Sort by</SelectLabel>
-            {sortBys.map((sort) => {
-              return (
-                <SelectItem key={sort.displayVal} value={sort.queryVal}>
-                  {sort.displayVal}
-                </SelectItem>
-              );
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <Select
-        onValueChange={(value) => {
-          handleChange('order_by', value);
-        }}
-      >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Order by" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Order by</SelectLabel>
-            {orderBys.map((order) => {
-              return (
-                <SelectItem key={order.displayVal} value={order.queryVal}>
-                  {order.displayVal}
-                </SelectItem>
-              );
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      <div className="sort-container">
+        <Select
+          onValueChange={(value) => {
+            handleChange('sort_by', value);
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Sort by" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Sort by</SelectLabel>
+              {sortBys.map((sort) => {
+                return (
+                  <SelectItem key={sort.displayVal} value={sort.queryVal}>
+                    {sort.displayVal}
+                  </SelectItem>
+                );
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Select
+          onValueChange={(value) => {
+            handleChange('order_by', value);
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Order by" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Order by</SelectLabel>
+              {orderBys.map((order) => {
+                return (
+                  <SelectItem key={order.displayVal} value={order.queryVal}>
+                    {order.displayVal}
+                  </SelectItem>
+                );
+              })}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
     </>
   );
 }

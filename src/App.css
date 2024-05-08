@@ -123,3 +123,8 @@ img {
 .article-card-link {
   margin: 5px
 }
+
+.sort-container {
+  display: flex;
+  justify-content: right;
+}
