@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Articles from './Articles';
 import { getTopics } from '@/utils/apis';
 import { Button } from './ui/button';
 
-export default function Topics() {
+export function Topics() {
   const [availableTopics, setAvailableTopics] = useState([]);
   const [filter, setFilter] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTopics().then(({ topics }) => {
@@ -13,21 +15,18 @@ export default function Topics() {
     });
   }, []);
 
-  const setTopicFilter = (e) => {
-    setFilter((curr) => {
-      return { ...curr, topic: e.target.value };
-    });
+  const setTopicFilter = (topicSlug) => {
+    setFilter({ topic: topicSlug });
+    navigate(`/topics/${topicSlug}`);
   };
 
   return (
     <div id="topics">
-      {availableTopics.map((topic) => {
-        return (
-          <Button value={topic.slug} onClick={(e) => setTopicFilter(e)}>
-            {topic.slug}
-          </Button>
-        );
-      })}
+      {availableTopics.map((topic) => (
+        <Button key={topic.slug} onClick={() => setTopicFilter(topic.slug)}>
+          {topic.slug}
+        </Button>
+      ))}
       <Articles filter={filter} />
     </div>
   );
