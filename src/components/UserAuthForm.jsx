@@ -7,6 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useContext, useState } from 'react';
@@ -16,7 +25,14 @@ export function UserAuthForm() {
   const { login } = useContext(UserUpdateContext);
   const [user, setUser] = useState(null);
 
+  const validusers = ['hello', 'me', 'cooljmessy'];
+
   const handleClick = (e) => {
+    login(user);
+  };
+  const handleSelect = (e) => {
+    // console.log(e);
+    setUser(e);
     login(user);
   };
 
@@ -30,14 +46,36 @@ export function UserAuthForm() {
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
+          <Label htmlFor="user">User</Label>
+          {/* <Input
             id="email"
             type="email"
             placeholder="m@example.com"
             required
             onChange={(e) => setUser(e.target.value)}
-          />
+          /> */}
+          <Select
+            onValueChange={(e) => {
+              handleSelect(e);
+            }}
+            id="user"
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Available users" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Sort by</SelectLabel>
+                {validusers.map((user) => {
+                  return (
+                    <SelectItem key={user} value={user}>
+                      {user}
+                    </SelectItem>
+                  );
+                })}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
         {/* <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
