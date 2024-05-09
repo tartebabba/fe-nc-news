@@ -5,17 +5,29 @@ import SubmitComment from './SubmitComment';
 import { CircleCheck, Trash2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { ErrorPage } from './ErrorPages';
 
 export default function Comments({ id }) {
   const [articleComments, setArticleComments] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
   const [userHasDeletedComment, setUserHasDeletedComment] = useState(false);
   const [userHasPostedComment, setUserHasPostedComment] = useState(0);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getArticleComments(id, params).then(({ comments }) => {
-      setArticleComments(comments);
-    });
+    getArticleComments(id, params)
+      .then(({ comments }) => {
+        if (comments.length === 0) {
+          setError({
+            errorMessage:
+              "Looks like there's no comments at the moment. Be the first!",
+          });
+        } else {
+          setArticleComments(comments);
+          setError(null);
+        }
+      })
+      .catch((err) => setError(err.response.data));
   }, [userHasDeletedComment, userHasPostedComment]);
 
   return (
@@ -27,15 +39,19 @@ export default function Comments({ id }) {
           setUserHasPostedComment={setUserHasPostedComment}
         />
       </div>
-      <div className="comment-cards">
-        {articleComments.map((comment) => (
-          <Comment
-            comment={comment}
-            key={comment.comment_id}
-            setUserHasDeletedComment={setUserHasDeletedComment}
-          />
-        ))}
-      </div>
+      {error ? (
+        <ErrorPage error={error} />
+      ) : (
+        <div className="comment-cards">
+          {articleComments.map((comment) => (
+            <Comment
+              comment={comment}
+              key={comment.comment_id}
+              setUserHasDeletedComment={setUserHasDeletedComment}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 }

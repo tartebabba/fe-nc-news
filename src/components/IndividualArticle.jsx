@@ -5,20 +5,25 @@ import { getSingleArticle } from '../utils/apis';
 import { useParams, Link } from 'react-router-dom';
 import { ArticleActions } from './Actions';
 import moment from 'moment';
+import { ErrorPage } from './ErrorPages';
 
 export default function ArticleView() {
   const [currentArticle, setCurrentArticle] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const [error, setError] = useState(null);
   const id = useParams();
 
   useEffect(() => {
     setIsLoading(true);
-    getSingleArticle(id).then(({ article }) => {
-      setCurrentArticle(article);
-      setIsLoading(false);
-    });
+    getSingleArticle(id)
+      .then(({ article }) => {
+        setCurrentArticle(article);
+        setIsLoading(false);
+      })
+      .catch((err) => setError(err.response.data));
   }, []);
+
+  if (error) return <ErrorPage error={error} />;
 
   if (isLoading) return <LoadingScreen />;
 
@@ -61,7 +66,7 @@ export default function ArticleView() {
         />
       </div>
       <div>
-        <Comments id={id} />
+        <Comments id={id} setError={setError} />
       </div>
     </>
   );

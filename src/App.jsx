@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navigation';
 import { Topics } from './components/Topics';
 import { ArticleBase } from './components/ArticlesBase';
+import { PageNotFound } from './components/ErrorPages';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/topics" element={<Topics />} />
         <Route path="/topics/:topic" element={<Topics />} />
         <Route path="/articles/:article_id" element={<IndividualArticle />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );

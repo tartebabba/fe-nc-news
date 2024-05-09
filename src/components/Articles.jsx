@@ -1,49 +1,41 @@
 import { useEffect, useState } from 'react';
-import { getArticles, getTenMostRecentArticles } from '../utils/apis';
+import { getArticles } from '../utils/apis';
 import { ArticleCard } from './bootstrap';
 import LoadingScreen from './Screens';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { ErrorPage } from './ErrorPages';
 
 export default function Articles(props) {
   const { filter } = props;
-  const pageParams = useParams();
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [articles, setArticles] = useState([]);
-  const [params, setParams] = useState({ limit: 20, page: 1 });
-
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlParams = useParams();
 
   useEffect(() => {
-    setParams((currParams) => {
-      return { ...currParams, ...filter, ...pageParams };
-    });
-    let searchQuery = Object.entries(params)
-      .map(([key, value]) => `${key}=${value}&`)
-      .join('')
-      .slice(0, -1);
+    const params = { ...filter, ...urlParams };
+    setIsLoading(true);
 
+    getArticles(params)
+      .then(({ articles }) => {
+        setArticles(articles);
+        setIsLoading(false);
+        setError(null);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err.response.data);
+      });
+
+    let searchQuery = { ...params };
+    delete searchQuery.topic;
     setSearchParams(searchQuery);
   }, [filter]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (
-      Object.keys(pageParams).length !== 0 ||
-      Object.keys(filter).length !== 0
-    ) {
-      getArticles(params).then(({ articles }) => {
-        setArticles(articles);
-        setIsLoading(false);
-      });
-    } else {
-      getTenMostRecentArticles().then(({ articles }) => {
-        setArticles(articles);
-        setIsLoading(false);
-      });
-    }
-  }, [params]);
-
   if (isLoading) return <LoadingScreen />;
+
+  if (error) return <ErrorPage error={error} />;
 
   return (
     <div id="card-container">
