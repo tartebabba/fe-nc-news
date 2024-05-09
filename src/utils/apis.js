@@ -1,43 +1,24 @@
 import axios from 'axios';
-import { comment } from 'postcss';
 
 const baseURL = 'https://fakeddit.onrender.com/api/';
 
 export function getTopics() {
-  return axios
-    .get(`${baseURL}topics/`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => console.log(err));
-}
-
-export function getTenMostRecentArticles() {
-  return axios
-    .get(`${baseURL}articles/`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => console.log(err));
+  return axios.get(`${baseURL}topics/`).then(({ data }) => {
+    return data;
+  });
 }
 
 export function getArticles(params) {
   let query = buildQueryString(params);
-  return axios
-    .get(`${baseURL}articles?${query}`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => console.log(err, 'all articles'));
+  return axios.get(`${baseURL}articles?${query}`).then(({ data }) => {
+    return data;
+  });
 }
 
 export function getSingleArticle({ article_id }) {
-  return axios
-    .get(`${baseURL}articles/${article_id}`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => console.log(err));
+  return axios.get(`${baseURL}articles/${article_id}`).then(({ data }) => {
+    return data;
+  });
 }
 
 export function getArticleComments({ article_id }, params) {
@@ -46,8 +27,7 @@ export function getArticleComments({ article_id }, params) {
     .get(`${baseURL}articles/${article_id}/comments?${query}`)
     .then(({ data }) => {
       return data;
-    })
-    .catch((err) => console.log(err));
+    });
 }
 
 export function patchArticleByID(article_id, voteChange) {
@@ -56,8 +36,7 @@ export function patchArticleByID(article_id, voteChange) {
     .patch(`${baseURL}articles/${article_id}`, patchBody)
     .then(({ data }) => {
       return data;
-    })
-    .catch((err) => console.log(err));
+    });
 }
 
 export function postArticleComment({ article_id }, body) {
@@ -65,17 +44,13 @@ export function postArticleComment({ article_id }, body) {
     .post(`${baseURL}articles/${article_id}/comments`, body)
     .then(({ data }) => {
       return data;
-    })
-    .catch((err) => console.log(err));
+    });
 }
 
 export function deleteArticleComment(comment_id) {
-  return axios
-    .delete(`${baseURL}comments/${comment_id}`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => console.log(err));
+  return axios.delete(`${baseURL}comments/${comment_id}`).then(({ data }) => {
+    return data;
+  });
 }
 
 // HELPER FUNCTIONS

@@ -7,19 +7,27 @@ import Sort from './SortArticles';
 
 export function Topics() {
   const [availableTopics, setAvailableTopics] = useState([]);
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { topic } = useParams();
 
   useEffect(() => {
-    getTopics().then(({ topics }) => {
-      setAvailableTopics(topics);
-    });
-  }, []);
+    getTopics()
+      .then(({ topics }) => {
+        setAvailableTopics(topics);
+      })
+      .catch((err) => setError(err.response.data));
+    // setFilter to fix bug when clicking topics - triggerring rerender
+    setFilter({});
+  }, [topic]);
 
   const setTopicFilter = (topicSlug) => {
     setFilter({ topic: topicSlug });
     navigate(`/topics/${topicSlug}`);
   };
+
+  if (error) return <ErrorPage error={error} />;
 
   return (
     <div id="topics">
