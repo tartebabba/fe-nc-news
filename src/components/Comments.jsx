@@ -58,10 +58,10 @@ export default function Comments({ id }) {
 }
 
 function Comment({ comment, setUserHasDeletedComment }) {
-  const user = useContext(UserContext);
+  const { username } = useContext(UserContext);
   const { comment_id, votes, created_at, author, body, article_id } = comment;
 
-  const isUsersComment = user === author;
+  const isUsersComment = username === author;
 
   return (
     <div className="comment-card">

@@ -53,6 +53,12 @@ export function deleteArticleComment(comment_id) {
   });
 }
 
+export function getUsers() {
+  return axios.get(`${baseURL}users`).then(({ data }) => {
+    return data;
+  });
+}
+
 // HELPER FUNCTIONS
 function buildQueryString(params) {
   return Object.entries(params)

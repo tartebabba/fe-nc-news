@@ -11,11 +11,11 @@ export default function SubmitComment({ id, setUserHasPostedComment }) {
 
   const isCommentLongEnough = newComment.length > 10;
 
+  const { username } = useContext(UserContext);
   const user = useContext(UserContext);
-  console.log(user);
 
   const submitComment = () => {
-    const commentBody = { username: user, body: newComment };
+    const commentBody = { username: username, body: newComment };
 
     postArticleComment(id, commentBody)
       .then((res) => {
@@ -41,7 +41,7 @@ export default function SubmitComment({ id, setUserHasPostedComment }) {
         <Label htmlFor="message-2">Add comment</Label>
         <Textarea
           placeholder={
-            user
+            username
               ? 'Type your comment here.'
               : 'Please login to submit a comment'
           }
@@ -52,12 +52,12 @@ export default function SubmitComment({ id, setUserHasPostedComment }) {
           value={newComment}
           required
           minLength="10"
-          disabled={!user}
+          disabled={!username}
         />
         <p className="text-sm text-muted-foreground">
           Your comment will be visible to all readers.
         </p>
-        <Button onClick={clearComment} disabled={!user}>
+        <Button onClick={clearComment} disabled={!username}>
           Cancel
         </Button>
         <Button

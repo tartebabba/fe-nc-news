@@ -18,22 +18,26 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserUpdateContext } from './Context';
+import { getUsers } from '@/utils/apis';
 
 export function UserAuthForm() {
   const { login } = useContext(UserUpdateContext);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
+  const [users, setUsers] = useState([]);
 
-  const validusers = ['hello', 'me', 'cooljmessy'];
+  useEffect(() => {
+    getUsers().then(({ users }) => {
+      setUsers(users);
+    });
+  }, []);
 
   const handleClick = (e) => {
     login(user);
   };
   const handleSelect = (e) => {
-    // console.log(e);
     setUser(e);
-    login(user);
   };
 
   return (
@@ -65,11 +69,11 @@ export function UserAuthForm() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Sort by</SelectLabel>
-                {validusers.map((user) => {
+                <SelectLabel>Available users</SelectLabel>
+                {users.map((user) => {
                   return (
-                    <SelectItem key={user} value={user}>
-                      {user}
+                    <SelectItem key={user.username} value={user}>
+                      {user.username}
                     </SelectItem>
                   );
                 })}

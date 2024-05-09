@@ -12,14 +12,14 @@ export const UserUpdateContext = createContext();
 // }
 
 export function UserProvider({ children }) {
-  const [userLogin, setUserLogin] = useState();
+  const [userLogin, setUserLogin] = useState({});
 
   const login = (userData) => {
     setUserLogin(userData);
   };
 
   const logout = () => {
-    setUserLogin(null);
+    setUserLogin({});
   };
   return (
     <UserContext.Provider value={userLogin}>
