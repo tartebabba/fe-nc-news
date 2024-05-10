@@ -7,9 +7,9 @@ export function useUser() {
   return useContext(UserContext);
 }
 
-// export function useUserUpdate() {
-//   return useContext(UserUpdateContext);
-// }
+export function useUserUpdate() {
+  return useContext(UserUpdateContext);
+}
 
 export function UserProvider({ children }) {
   const [userLogin, setUserLogin] = useState(null);
@@ -17,7 +17,6 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     setIsUserLoading(false);
-    console.log(userLogin);
   }, [userLogin]);
 
   const login = (userData) => {
@@ -25,6 +24,7 @@ export function UserProvider({ children }) {
   };
 
   const logout = () => {
+    setIsUserLoading(true);
     setUserLogin(null);
   };
   return (

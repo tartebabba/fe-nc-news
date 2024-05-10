@@ -1,12 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-
-import * as React from 'react';
-
 import SelectUser from './users/users-select';
 import { useState } from 'react';
-import { CircleUser, Menu, Newspaper, Package2, Search } from 'lucide-react';
+import { CircleUserIcon, Menu, Newspaper } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,10 +14,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { UserContext, UserUpdateContext } from './Context';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 export default function Navbar() {
   const { login, logout } = useContext(UserUpdateContext);
+  const { avatar_url, username, name, isUserLoading } = useContext(UserContext);
+  const [showInput, setShowInput] = useState(false);
 
   const logOutUser = () => {
     logout();
@@ -30,7 +30,6 @@ export default function Navbar() {
   const [users, setUsers] = useState([]);
 
   const navigateToLink = (url) => {
-    console.log(url.target);
     navigate(`${url}`);
   };
 
@@ -79,65 +78,56 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
-              <Link
-                href="#"
-                className="flex items-center gap-2 text-lg font-semibold"
-              >
-                <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Orders
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Products
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Customers
-              </Link>
-              <Link href="#" className="hover:text-foreground">
-                Settings
-              </Link>
+              {NavigationPages.map((page) => {
+                return (
+                  <Link
+                    key={page}
+                    to={`${page === 'Home' ? '/' : page.toLowerCase()}`}
+                    className="text-muted-foreground  hover:text-foreground"
+                  >
+                    {page}
+                  </Link>
+                );
+              })}
             </nav>
           </SheetContent>
         </Sheet>
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          {/* <form className="ml-auto flex-1 sm:flex-initial"> */}
-          <div className="relative">
-            {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-              /> */}
+          <div className="relative ml-auto flex-1 sm:flex-initial">
             <SelectUser />
           </div>
-          {/* </form> */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
+                {!isUserLoading && avatar_url ? (
+                  <Avatar>
+                    <AvatarImage
+                      src={avatar_url}
+                      alt={`${username}'s (${name}) avatar`}
+                    />
+                    <AvatarFallback>
+                      {name
+                        .split(' ')
+                        .map((name) => name[0].toUpperCase())
+                        .join('')}
+                    </AvatarFallback>
+                  </Avatar>
+                ) : (
+                  <Avatar>
+                    <AvatarFallback>
+                      <CircleUserIcon className="h-5 w-5" />
+                    </AvatarFallback>
+                  </Avatar>
+                )}
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={(e) => navigateToLink('account')}>
+                Account
+              </DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />

@@ -10,12 +10,15 @@ import {
 import { useContext, useState, useEffect } from 'react';
 import { getUsers } from '@/utils/apis';
 import { UserUpdateContext } from '../Context';
+import { DropdownMenuSeparator } from '../ui/dropdown-menu';
+import { useLocation } from 'react-router-dom';
 
 export default function SelectUser() {
   const { logout, login } = useContext(UserUpdateContext);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
-  console.log(user, 'select');
+  const [displayValue, setDisplayValue] = useState('');
+  const { pathname } = useLocation();
 
   useEffect(() => {
     getUsers().then(({ users }) => {
@@ -24,12 +27,17 @@ export default function SelectUser() {
   }, []);
 
   useEffect(() => {
-    login(user);
+    if (user) {
+      login(user);
+      setDisplayValue(user.username);
+    } else {
+      setDisplayValue('Select a user');
+    }
   }, [user]);
 
   const handleSelect = (e) => {
     if (e === 'logout') {
-      setUser();
+      setUser(null);
       logout();
     } else {
       setUser(e);
@@ -45,11 +53,11 @@ export default function SelectUser() {
         id="user"
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Available users" />
+          <SelectValue placeholder={displayValue} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Available users</SelectLabel>
+            <SelectLabel>Select user</SelectLabel>
             {users.map((user) => {
               return (
                 <SelectItem key={user.username} value={user}>
@@ -57,9 +65,19 @@ export default function SelectUser() {
                 </SelectItem>
               );
             })}
-            <SelectItem key="logout" value="logout">
-              {user === undefined ? 'Logged out' : 'Logout'}
-            </SelectItem>
+            {user && (
+              <>
+                <DropdownMenuSeparator />
+                <SelectItem key="logout" value="logout">
+                  Logout
+                </SelectItem>
+              </>
+            )}
+            {!user && pathname !== '/account' && (
+              <SelectItem key="logged-out" value="logout" disabled>
+                Logged Out
+              </SelectItem>
+            )}
           </SelectGroup>
         </SelectContent>
       </Select>
