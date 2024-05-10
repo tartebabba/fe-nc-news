@@ -41,37 +41,42 @@ export default function SubmitComment({ id, setUserHasPostedComment }) {
 
   return (
     <div className="grid w-full gap-1.5">
+      <h2 className="text-2xl font-bold">Comments</h2>
       <form onSubmit={(e) => e.preventDefault()}>
-        <Label htmlFor="message-2">Add comment</Label>
-        <Textarea
-          placeholder={
-            username
-              ? 'Type your comment here.'
-              : 'Please login to submit a comment'
-          }
-          id="message-2"
-          onChange={(e) => {
-            setNewComment(e.target.value);
-          }}
-          value={newComment}
-          required
-          minLength="10"
-          disabled={!username}
-        />
-        <p className="text-sm text-muted-foreground">
-          Your comment will be visible to all readers.
-        </p>
-        <Button onClick={clearComment} disabled={!username}>
-          Cancel
-        </Button>
-        <Button
-          onClick={() => {
-            submitComment();
-          }}
-          disabled={!isCommentLongEnough}
-        >
-          {isCommentSuccessful ? 'Comment Posted' : 'Comment'}
-        </Button>
+        <div className="grid w-full gap-1.5">
+          <Label htmlFor="message-2">Add comment</Label>
+          <Textarea
+            placeholder={
+              username
+                ? 'Type your comment here.'
+                : 'Please login to submit a comment'
+            }
+            id="message-2"
+            onChange={(e) => {
+              setNewComment(e.target.value);
+            }}
+            value={newComment}
+            required
+            minLength="10"
+            disabled={!username}
+          />
+          <p className="text-sm text-muted-foreground">
+            Your comment will be visible to all readers.
+          </p>
+        </div>
+        <div className="grid w-full gap-1.5">
+          <Button onClick={clearComment} disabled={!username}>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              submitComment();
+            }}
+            disabled={!isCommentLongEnough}
+          >
+            {isCommentSuccessful ? 'Comment Posted' : 'Comment'}
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -8,6 +8,12 @@ import { Link } from 'react-router-dom';
 import { ErrorPage } from './ErrorPages';
 import { UserContext } from './Context';
 
+// Comments Import
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card } from './ui/card';
+
+
+
 export default function Comments({ id }) {
   const [articleComments, setArticleComments] = useState([]);
   const [params, setParams] = useState({ limit: 20, page: 1 });
@@ -33,8 +39,7 @@ export default function Comments({ id }) {
 
   return (
     <>
-      <div>
-        <h3>Comments</h3>
+      <div className="grid w-full gap-1.5">
         <SubmitComment
           id={id}
           setUserHasPostedComment={setUserHasPostedComment}
@@ -43,7 +48,7 @@ export default function Comments({ id }) {
       {error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="comment-cards">
+        <div className="mt-1 space-y-4">
           {articleComments.map((comment) => (
             <Comment
               comment={comment}
@@ -64,25 +69,39 @@ function Comment({ comment, setUserHasDeletedComment }) {
   const isUsersComment = username === author;
 
   return (
-    <div className="comment-card">
-      <p>
-        {moment(created_at).format('MMMM Do YYYY')} -{' '}
-        <Link to={`/users/${author}`} className="article-card-link">
-          u/{author}
-        </Link>
-      </p>
-      <p>{body}</p>
-      <div>
-        {isUsersComment && (
-          <DisplayButton
-            comment_id={comment_id}
-            setUserHasDeletedComment={setUserHasDeletedComment}
-          />
-        )}
+    <Card className="flex items-start gap-6 p-6 rounded-lg shadow-md">
+      <div className="flex items-start gap-4">
+        <Avatar>
+          <AvatarImage alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <div className="flex-1">
+          <div className="flex items-center justify-between">
+            <div className="font-medium">
+              <Link to={`/users/${author}`} className="article-card-link">
+                u/{author}
+              </Link>
+            </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400 ">
+              {moment(created_at).format('MMMM Do YYYY')}
+            </p>
+          </div>
+          <p className="text-sm">{body}</p>
+          <div>
+            {isUsersComment && (
+              <DisplayButton
+                comment_id={comment_id}
+                setUserHasDeletedComment={setUserHasDeletedComment}
+              />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 }
+
+
 
 function DisplayButton({ comment_id, setUserHasDeletedComment }) {
   const [deleteStatus, setDeleteStatus] = useState({
