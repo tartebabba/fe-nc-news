@@ -3,19 +3,23 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useContext, useState } from 'react';
 import { postArticleComment } from '@/utils/apis';
-import { UserContext } from './Context';
+import { UserContext, useUser } from './Context';
+import LoadingScreen from './Screens';
 
 export default function SubmitComment({ id, setUserHasPostedComment }) {
+  const { username, isUserLoading } = useContext(UserContext);
+
   const [newComment, setNewComment] = useState('');
   const [isCommentSuccessful, setIsCommentSuccessful] = useState(false);
 
   const isCommentLongEnough = newComment.length > 10;
 
-  const { username } = useContext(UserContext);
-  const user = useContext(UserContext);
+  if (isUserLoading) {
+    return <LoadingScreen />;
+  }
 
   const submitComment = () => {
-    const commentBody = { username: username, body: newComment };
+    const commentBody = { username: user.username, body: newComment };
 
     postArticleComment(id, commentBody)
       .then((res) => {
