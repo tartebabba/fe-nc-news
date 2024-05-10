@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { deleteArticleComment, getArticleComments } from '../utils/apis';
 import moment from 'moment';
 import SubmitComment from './SubmitComment';
@@ -6,6 +6,7 @@ import { CircleCheck, Trash2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ErrorPage } from './ErrorPages';
+import { UserContext } from './Context';
 
 export default function Comments({ id }) {
   const [articleComments, setArticleComments] = useState([]);
@@ -57,11 +58,10 @@ export default function Comments({ id }) {
 }
 
 function Comment({ comment, setUserHasDeletedComment }) {
-  // Hard coded for now as don't have a user login.
-  const user = 'cooljmessy';
+  const { username } = useContext(UserContext);
   const { comment_id, votes, created_at, author, body, article_id } = comment;
 
-  const isUsersComment = user === author;
+  const isUsersComment = username === author;
 
   return (
     <div className="comment-card">

@@ -1,20 +1,25 @@
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { postArticleComment } from '@/utils/apis';
+import { UserContext, useUser } from './Context';
+import LoadingScreen from './Screens';
 
 export default function SubmitComment({ id, setUserHasPostedComment }) {
+  const { username, isUserLoading } = useContext(UserContext);
+
   const [newComment, setNewComment] = useState('');
   const [isCommentSuccessful, setIsCommentSuccessful] = useState(false);
 
   const isCommentLongEnough = newComment.length > 10;
 
-  // Hard code username for now
-  const user = 'cooljmessy';
+  if (isUserLoading) {
+    return <LoadingScreen />;
+  }
 
   const submitComment = () => {
-    const commentBody = { username: user, body: newComment };
+    const commentBody = { username: user.username, body: newComment };
 
     postArticleComment(id, commentBody)
       .then((res) => {
@@ -39,7 +44,11 @@ export default function SubmitComment({ id, setUserHasPostedComment }) {
       <form onSubmit={(e) => e.preventDefault()}>
         <Label htmlFor="message-2">Add comment</Label>
         <Textarea
-          placeholder="Type your comment here."
+          placeholder={
+            username
+              ? 'Type your comment here.'
+              : 'Please login to submit a comment'
+          }
           id="message-2"
           onChange={(e) => {
             setNewComment(e.target.value);
@@ -47,11 +56,14 @@ export default function SubmitComment({ id, setUserHasPostedComment }) {
           value={newComment}
           required
           minLength="10"
+          disabled={!username}
         />
         <p className="text-sm text-muted-foreground">
           Your comment will be visible to all readers.
         </p>
-        <Button onClick={clearComment}>Cancel</Button>
+        <Button onClick={clearComment} disabled={!username}>
+          Cancel
+        </Button>
         <Button
           onClick={() => {
             submitComment();

@@ -7,20 +7,28 @@ import Navbar from './components/Navigation';
 import { Topics } from './components/Topics';
 import { ArticleBase } from './components/ArticlesBase';
 import { PageNotFound } from './components/ErrorPages';
+import { UserProvider } from './components/Context';
+import Account from './components/Account';
+import { Dashboard } from './components/main/dashboard';
 
 function App() {
   return (
     <>
-      <Header />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/articles" element={<ArticleBase />} />
-        <Route path="/topics" element={<Topics />} />
-        <Route path="/topics/:topic" element={<Topics />} />
-        <Route path="/articles/:article_id" element={<IndividualArticle />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <UserProvider>
+        <Header />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/articles" element={<ArticleBase />} />
+          <Route path="/articles/:article_id" element={<IndividualArticle />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/:topic" element={<Topics />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </UserProvider>
     </>
   );
 }
