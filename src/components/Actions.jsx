@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { patchArticleByID } from '../utils/apis';
+import { Button } from './ui/button';
+import { MessageSquareIcon, ThumbsUpIcon } from 'lucide-react';
 
 export function ArticleActions({ currentArticle, setCurrentArticle }) {
   const { article_id, comment_count, votes } = currentArticle;
@@ -8,8 +10,6 @@ export function ArticleActions({ currentArticle, setCurrentArticle }) {
     hasVoted: false,
   });
   const [err, setErr] = useState(null);
-
-
 
   const changeVoteCount = () => {
     const voteChange = userAction.hasVoted ? -1 : 1;
@@ -30,14 +30,17 @@ export function ArticleActions({ currentArticle, setCurrentArticle }) {
     });
   };
 
-
-
   return (
-    <div>
-      <button onClick={changeVoteCount}>
-        Votes: {votes} {userAction.hasVoted ? `▽` : `△`}
-      </button>
-      <button>Comments: {comment_count}</button>
+    <div className="flex items-center gap-4">
+      <Button onClick={changeVoteCount} variant="outline">
+        <ThumbsUpIcon className="w-4 h-4 mr-2" />
+        Votes: {votes}
+      </Button>
+      <Button variant="outline">
+        <MessageSquareIcon className="mr-2 h-4 w-4" />
+        Comments: {comment_count}
+      </Button>
     </div>
   );
 }
+

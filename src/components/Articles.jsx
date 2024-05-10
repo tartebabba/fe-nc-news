@@ -4,7 +4,6 @@ import { ArticleCard } from './articles/article-cards';
 import LoadingScreen from './Screens';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { ErrorPage } from './ErrorPages';
-import { Card } from './ui/card';
 
 export default function Articles(props) {
   const { filter } = props;
