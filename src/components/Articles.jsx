@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { getArticles } from '../utils/apis';
-import { ArticleCard } from './bootstrap';
+import { ArticleCard } from './articles/article-cards';
 import LoadingScreen from './Screens';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { ErrorPage } from './ErrorPages';
+import { Card } from './ui/card';
 
 export default function Articles(props) {
   const { filter } = props;
@@ -38,16 +39,14 @@ export default function Articles(props) {
   if (error) return <ErrorPage error={error} />;
 
   return (
-    <div id="card-container">
-      <div className="card">
-        {articles.map((article) => {
-          return (
-            <article className="article-card" key={article.article_id}>
-              <ArticleCard article={article} />
-            </article>
-          );
-        })}
-      </div>
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      {articles.map((article) => {
+        return (
+          <article className="article-card my-2" key={article.article_id}>
+            <ArticleCard article={article} />
+          </article>
+        );
+      })}
     </div>
   );
 }
