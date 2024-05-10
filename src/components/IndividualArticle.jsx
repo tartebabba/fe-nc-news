@@ -78,9 +78,7 @@ export default function ArticleView() {
           />
         </article>
       </div>
-      <div>
-        <Comments id={id} setError={setError} />
-      </div>
+      <Comments id={id} setError={setError} />
     </>
   );
 }
