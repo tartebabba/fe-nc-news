@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserContext, UserUpdateContext } from './Context';
 import { useContext } from 'react';
+import { ModeToggle } from './main/mode-toggle';
 
 export default function Navbar() {
   const { login, logout } = useContext(UserUpdateContext);
@@ -133,6 +134,7 @@ export default function Navbar() {
               <DropdownMenuItem onClick={logOutUser}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <ModeToggle></ModeToggle>
         </div>
       </header>
     </>

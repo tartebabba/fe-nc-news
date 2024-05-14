@@ -11,33 +11,15 @@ import { UserProvider } from './components/Context';
 import Account from './components/Account';
 import { Dashboard } from './components/main/dashboard';
 import { useEffect } from 'react';
+import { ThemeProvider } from './components/main/theme-provider';
 
 function App() {
 
-  // Toggle Dark Mode to respond to system settings not context.
-  useEffect(() => {
-    // Check if dark mode is preferred on first load
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark');
-    }
 
-    // Listener for system theme changes
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const setDarkMode = (e) => {
-      document.documentElement.classList.toggle('dark', e.matches);
-    }
-      
-    darkModeMediaQuery.addEventListener('change', setDarkMode);
-      
-    return () => {
-      // Cleanup event listener
-      darkModeMediaQuery.removeEventListener('change', setDarkMode);
-    };
-      
-  }, []);
   return (
-    <div className='dark:bg-[#0D1113]'>
+    <div className=' bg-slate-50 dark:bg-[#0D1113]'>
       <UserProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Header />
         <Navbar />
         <Routes>
@@ -51,6 +33,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        </ThemeProvider>
       </UserProvider>
     </div>
   );
