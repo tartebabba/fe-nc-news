@@ -36,7 +36,7 @@ function App() {
       
   }, []);
   return (
-    <>
+    <div className='dark:bg-[#0D1113]'>
       <UserProvider>
         <Header />
         <Navbar />
@@ -52,7 +52,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </UserProvider>
-    </>
+    </div>
   );
 }
 
