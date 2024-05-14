@@ -10,8 +10,31 @@ import { PageNotFound } from './components/ErrorPages';
 import { UserProvider } from './components/Context';
 import Account from './components/Account';
 import { Dashboard } from './components/main/dashboard';
+import { useEffect } from 'react';
 
 function App() {
+
+  // Toggle Dark Mode to respond to system settings not context.
+  useEffect(() => {
+    // Check if dark mode is preferred on first load
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+
+    // Listener for system theme changes
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const setDarkMode = (e) => {
+      document.documentElement.classList.toggle('dark', e.matches);
+    }
+      
+    darkModeMediaQuery.addEventListener('change', setDarkMode);
+      
+    return () => {
+      // Cleanup event listener
+      darkModeMediaQuery.removeEventListener('change', setDarkMode);
+    };
+      
+  }, []);
   return (
     <>
       <UserProvider>
