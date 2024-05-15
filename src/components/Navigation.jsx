@@ -40,7 +40,6 @@ export default function Navbar() {
     'Topics',
     'Users',
     'Account',
-    'Dashboard',
   ];
 
   return (
@@ -83,7 +82,7 @@ export default function Navbar() {
                   <Link
                     key={page}
                     to={`${page === 'Home' ? '/' : page.toLowerCase()}`}
-                    className="text-muted-foreground  hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground"
                   >
                     {page}
                   </Link>

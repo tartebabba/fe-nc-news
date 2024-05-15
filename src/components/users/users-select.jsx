@@ -52,8 +52,8 @@ export default function SelectUser() {
         }}
         id="user"
       >
-        <SelectTrigger>
-          <SelectValue placeholder={displayValue} />
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder={displayValue}/>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
