@@ -10,14 +10,13 @@ import { PageNotFound } from './components/ErrorPages';
 import { UserProvider } from './components/Context';
 import Account from './components/Account';
 import { Dashboard } from './components/main/dashboard';
-import { useEffect } from 'react';
 import { ThemeProvider } from './components/main/theme-provider';
 
 function App() {
 
 
   return (
-    <div className=' bg-slate-50 dark:bg-[#0D1113]'>
+    <div className=' bg-slate-50 dark:bg-[#0D1113] w-screen'>
       <UserProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Header />
