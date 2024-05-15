@@ -30,11 +30,12 @@ export default function Sort(props) {
 
   return (
     <>
-      <div className="sort-container">
+      <div className="flex justify-center py-2">
         <Select
           onValueChange={(value) => {
             handleChange('sort_by', value);
           }}
+
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort by" />

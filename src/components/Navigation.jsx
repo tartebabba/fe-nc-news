@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserContext, UserUpdateContext } from './Context';
 import { useContext } from 'react';
+import { ModeToggle } from './main/mode-toggle';
 
 export default function Navbar() {
   const { login, logout } = useContext(UserUpdateContext);
@@ -44,7 +45,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-slate-200 dark:bg-[#0D1113] px-4 md:px-6">
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <Link
             href="#"
@@ -69,7 +70,6 @@ export default function Navbar() {
           <SheetTrigger asChild>
             <Button
               variant="outline"
-              size="icon"
               className="shrink-0 md:hidden"
             >
               <Menu className="h-5 w-5" />
@@ -134,6 +134,7 @@ export default function Navbar() {
               <DropdownMenuItem onClick={logOutUser}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <ModeToggle></ModeToggle>
         </div>
       </header>
     </>
