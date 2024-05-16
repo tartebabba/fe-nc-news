@@ -18,8 +18,6 @@ export function Topics() {
         setAvailableTopics(topics);
       })
       .catch((err) => setError(err.response.data));
-    // setFilter to fix bug when clicking topics - triggerring rerender
-    setFilter({});
   }, [topic]);
 
   const setTopicFilter = (topicSlug) => {
@@ -30,14 +28,20 @@ export function Topics() {
   if (error) return <ErrorPage error={error} />;
 
   return (
-    <div id="topics">
+    <>
       <Sort setSortParams={setFilter} />
-      {availableTopics.map((topic) => (
-        <Button key={topic.slug} onClick={() => setTopicFilter(topic.slug)}>
-          {topic.slug}
-        </Button>
-      ))}
-      <Articles filter={filter} />
-    </div>
+      <div className="marg m2 flex justify-center gap-1">
+        {availableTopics.map((topic) => (
+          <Button key={topic.slug} onClick={() => setTopicFilter(topic.slug)}>
+            {topic.slug}
+          </Button>
+        ))}
+      </div>
+      {filter && topic ? (
+        <Articles filter={filter} />
+      ) : (
+        <p className="text-center">Select a topic!</p>
+      )}
+    </>
   );
 }

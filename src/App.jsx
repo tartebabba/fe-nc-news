@@ -18,22 +18,25 @@ function App() {
 
 
   return (
-    <div className=' bg-slate-50 dark:bg-[#0D1113] w-screen'>
+    <div className=" h-screen w-screen bg-slate-50 dark:bg-[#0D1113] dark:text-slate-50">
       <UserProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Header />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/articles" element={<ArticleBase />} />
-          <Route path="/articles/:article_id" element={<IndividualArticle />} />
-          <Route path="/topics" element={<Topics />} />
-          <Route path="/topics/:topic" element={<Topics />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <Header />
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/articles" element={<ArticleBase />} />
+            <Route
+              path="/articles/:article_id"
+              element={<IndividualArticle />}
+            />
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/topics/:topic" element={<Topics />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
         </ThemeProvider>
       </UserProvider>
     </div>
