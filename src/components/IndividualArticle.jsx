@@ -41,9 +41,9 @@ export default function ArticleView() {
 
   return (
     <>
-      <div className="px-4 py-6 md:px-6 lg:py-16 md:py-12">
-        <article className="prose prose-gray mx-auto dark:prose-invert">
-          <div className="space-y-2 not-prose">
+      <div className="px-4 py-6 md:px-6 md:py-12 lg:py-16">
+        <article className="prose prose-gray dark:prose-invert mx-auto">
+          <div className="not-prose space-y-2">
             <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
               <Link to={`/topics/${topic}`} className="article-card-link">
                 f/{topic}
@@ -77,8 +77,8 @@ export default function ArticleView() {
             setCurrentArticle={setCurrentArticle}
           />
         </article>
+        <Comments id={id} setError={setError} />
       </div>
-      <Comments id={id} setError={setError} />
     </>
   );
 }

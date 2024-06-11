@@ -44,7 +44,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-slate-200 dark:bg-[#0D1113] px-4 md:px-6">
+      <header className="sticky top-0 flex h-16 w-full items-center gap-4 border-b bg-slate-200 px-4 dark:bg-[#0D1113] md:px-6">
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <Link
             href="#"
@@ -58,7 +58,7 @@ export default function Navbar() {
               <Link
                 key={page}
                 to={`${page === 'Home' ? '/' : page.toLowerCase()}`}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 {page}
               </Link>
@@ -67,10 +67,7 @@ export default function Navbar() {
         </nav>
         <Sheet>
           <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              className="shrink-0 md:hidden"
-            >
+            <Button variant="outline" className="shrink-0 md:hidden">
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
