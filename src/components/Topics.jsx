@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Articles from './Articles';
 import { getTopics } from '@/utils/apis';
-import { Button } from './ui/button';
 import Sort from './SortArticles';
+import TopicCards from './topics/topic-cards';
+import { ErrorPage } from './ErrorPages';
 
 export function Topics() {
   const [availableTopics, setAvailableTopics] = useState([]);
@@ -14,15 +15,18 @@ export function Topics() {
 
   useEffect(() => {
     getTopics()
-      .then(({ topics }) => {
-        setAvailableTopics(topics);
-      })
+      .then(({ topics }) => setAvailableTopics(topics))
       .catch((err) => setError(err.response.data));
-  }, [topic]);
+  }, []);
 
   const setTopicFilter = (topicSlug) => {
     setFilter({ topic: topicSlug });
     navigate(`/topics/${topicSlug}`);
+  };
+
+  const goBackToTopics = () => {
+    setFilter(null);
+    navigate('/topics');
   };
 
   if (error) return <ErrorPage error={error} />;
@@ -30,18 +34,20 @@ export function Topics() {
   return (
     <>
       <Sort setSortParams={setFilter} />
-      <div className="marg m2 flex justify-center gap-1">
-        {availableTopics.map((topic) => (
-          <Button key={topic.slug} onClick={() => setTopicFilter(topic.slug)}>
-            {topic.slug}
-          </Button>
-        ))}
-      </div>
-      {filter && topic ? (
-        <Articles filter={filter} />
+      {topic ? (
+        <h1
+          className="my-2 text-center text-xl font-bold"
+          onClick={goBackToTopics}
+        >
+          f/{topic}
+        </h1>
       ) : (
-        <p className="text-center">Select a topic!</p>
+        <TopicCards
+          availableTopics={availableTopics}
+          setTopicFilter={setTopicFilter}
+        />
       )}
+      {filter && topic && <Articles filter={filter} />}
     </>
   );
 }

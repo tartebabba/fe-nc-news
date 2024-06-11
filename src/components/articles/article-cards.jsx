@@ -26,10 +26,10 @@ export function ArticleCard({ article }) {
   };
 
   return (
-    <Card className="flex items-start gap-6 p-6 rounded-lg shadow-md">
+    <Card className="flex items-start gap-6 rounded-lg p-6 shadow-md">
       <img
         alt="Article Thumbnail"
-        className="rounded-lg object-cover articles-card-img "
+        className="articles-card-img rounded-lg object-cover"
         height={150}
         src={article_img_url}
         style={{
