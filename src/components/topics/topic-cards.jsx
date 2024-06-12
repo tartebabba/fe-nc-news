@@ -10,7 +10,7 @@ export default function TopicCards(props) {
   const { availableTopics, setTopicFilter } = props;
 
   return (
-    <div className="mx-2 flex flex-wrap justify-center border px-2">
+    <div className="mx-2 flex flex-wrap justify-center px-2">
       {availableTopics.map((topic) => {
         return (
           <Card

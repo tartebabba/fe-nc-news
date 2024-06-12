@@ -18,7 +18,7 @@ function App() {
 
 
   return (
-    <div className=" h-screen w-screen bg-slate-50 dark:bg-[#0D1113] dark:text-slate-50">
+    <div className="h-screen w-screen bg-slate-50 dark:bg-[#0D1113] dark:text-slate-50">
       <UserProvider>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
           <Header />
