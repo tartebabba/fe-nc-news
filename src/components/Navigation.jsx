@@ -59,7 +59,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="container sticky top-0 flex items-center justify-between gap-2 py-2">
+      <header className="container sticky top-0 flex items-center justify-between gap-2 bg-slate-50  py-2 dark:bg-slate-950">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
