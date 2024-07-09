@@ -10,7 +10,7 @@ export default function Header() {
           className="absolute left-2"
         >
           <img
-            src="../public/JP-icon-32x32.png"
+            src="/JP-icon-32x32.png"
             alt="personal logo"
             className="h-4 w-4 rounded-md hover:bg-red-500"
           />
