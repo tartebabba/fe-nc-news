@@ -38,10 +38,10 @@ export default function Articles(props) {
   if (error) return <ErrorPage error={error} />;
 
   return (
-    <div className="bg-muted/40 mx-8 flex min-h-screen flex-col">
+    <div className="container flex-col">
       {articles.map((article) => {
         return (
-          <article className="article-card my-2" key={article.article_id}>
+          <article className="my-2" key={article.article_id}>
             <ArticleCard article={article} />
           </article>
         );

@@ -44,7 +44,7 @@ export default function Comments({ id }) {
       {error ? (
         <ErrorPage error={error} />
       ) : (
-        <div className="mt-1 space-y-4">
+        <div className="space-y-1">
           {articleComments.map((comment) => (
             <Comment
               comment={comment}
