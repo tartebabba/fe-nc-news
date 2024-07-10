@@ -92,7 +92,7 @@ export default function Navbar() {
           <Input placeholder="Search Fakeddit"></Input>
           <Search />
         </div>
-        <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+        <div className="flex items-center gap-4 md:gap-2 lg:gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
