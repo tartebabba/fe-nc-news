@@ -16,12 +16,17 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* @layer base {
+    html, body, #root {
+      height: 100%;
+    }
+  } */
+  
+
   html, body, #root {
     @apply bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-slate-50;
   }
-
 }
-
 
 a {
   font-weight: 500;
@@ -44,6 +49,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
 
 /* button {
   border-radius: 8px;
@@ -77,10 +83,5 @@ button:focus-visible {
   }
 }
 
-@layer base {
-  html, body, #root {
-    height: 100%;
-  }
-}
 
 

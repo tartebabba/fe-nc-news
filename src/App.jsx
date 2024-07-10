@@ -9,16 +9,15 @@ import { ArticleBase } from './components/ArticlesBase';
 import { PageNotFound } from './components/ErrorPages';
 import { UserProvider } from './components/Context';
 import Account from './components/Account';
-import { Dashboard } from './components/main/dashboard';
 import { ThemeProvider } from './components/main/theme-provider';
 import Footer from './components/footer';
 
 function App() {
   return (
-    <div className="flex flex-row justify-between">
-      <div className="w-screen">
+    <div className="flex min-h-screen flex-col">
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <UserProvider>
-          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <div className="w-screen flex-grow">
             <Header />
             <Navbar />
             <Routes>
@@ -32,13 +31,12 @@ function App() {
               />
               <Route path="/topics" element={<Topics />} />
               <Route path="/topics/:topic" element={<Topics />} />
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
-            <Footer />
-          </ThemeProvider>
+          </div>
+          <Footer />
         </UserProvider>
-      </div>
+      </ThemeProvider>
     </div>
   );
 }
