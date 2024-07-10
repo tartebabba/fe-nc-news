@@ -11,34 +11,35 @@ import { UserProvider } from './components/Context';
 import Account from './components/Account';
 import { Dashboard } from './components/main/dashboard';
 import { ThemeProvider } from './components/main/theme-provider';
+import Footer from './components/footer';
 
 function App() {
-
-
-
-
   return (
-    <div className="w-screen bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-slate-50">
-      <UserProvider>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <Header />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/articles" element={<ArticleBase />} />
-            <Route
-              path="/articles/:article_id"
-              element={<IndividualArticle />}
-            />
-            <Route path="/topics" element={<Topics />} />
-            <Route path="/topics/:topic" element={<Topics />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </ThemeProvider>
-      </UserProvider>
+    <div className="flex flex-row justify-between">
+      <div className="w-screen">
+        <UserProvider>
+          <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <Header />
+            <Navbar />
+
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/articles" element={<ArticleBase />} />
+              <Route
+                path="/articles/:article_id"
+                element={<IndividualArticle />}
+              />
+              <Route path="/topics" element={<Topics />} />
+              <Route path="/topics/:topic" element={<Topics />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+            <Footer />
+          </ThemeProvider>
+        </UserProvider>
+      </div>
     </div>
   );
 }
