@@ -2,8 +2,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import SelectUser from './users/users-select';
 import { useState } from 'react';
-import { CircleUserIcon, Menu, Newspaper } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  CircleUserIcon,
+  HomeIcon,
+  Menu,
+  NewspaperIcon,
+  Search,
+  SettingsIcon,
+  TelescopeIcon,
+  UserIcon,
+} from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -16,6 +30,7 @@ import {
 import { UserContext, UserUpdateContext } from './Context';
 import { useContext } from 'react';
 import { ModeToggle } from './main/mode-toggle';
+import { Input } from './ui/input';
 
 export default function Navbar() {
   const { login, logout } = useContext(UserUpdateContext);
@@ -34,67 +49,50 @@ export default function Navbar() {
     navigate(`${url}`);
   };
 
-  const NavigationPages = [
-    'Home',
-    'Articles',
-    'Topics',
-    'Users',
-    'Account',
-  ];
+  const NavigationPages = {
+    Home: <HomeIcon className="h-4 w-4 " />,
+    Articles: <NewspaperIcon className="h-4 w-4" />,
+    Topics: <TelescopeIcon className="h-4 w-4" />,
+    Users: <UserIcon className="h-4 w-4" />,
+    Account: <SettingsIcon className="h-4 w-4" />,
+  };
 
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-slate-200 dark:bg-[#0D1113] px-4 md:px-6">
-        <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-          <Link
-            href="#"
-            className="flex items-center gap-2 text-lg font-semibold md:text-base"
-          >
-            <Newspaper className="h-6 w-6" />
-            <span className="sr-only">Fakeddit</span>
-          </Link>
-          {NavigationPages.map((page) => {
-            return (
-              <Link
-                key={page}
-                to={`${page === 'Home' ? '/' : page.toLowerCase()}`}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {page}
-              </Link>
-            );
-          })}
-        </nav>
+      <header className="container sticky top-0 flex items-center justify-between gap-2 bg-slate-50  py-2 dark:bg-slate-950">
         <Sheet>
           <SheetTrigger asChild>
-            <Button
-              variant="outline"
-              className="shrink-0 md:hidden"
-            >
-              <Menu className="h-5 w-5" />
+            <Button variant="secondary" size="icon" className="rounded-full">
+              <Menu />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
-            <nav className="grid gap-6 text-lg font-medium">
-              {NavigationPages.map((page) => {
+          <SheetContent side="left" className="w-[250px]  sm:w-[540px]">
+            <SheetTitle>Navigation</SheetTitle>
+            <hr class="h-px border-0 bg-gray-200 dark:bg-gray-700"></hr>
+            <nav className="my-2 grid gap-1">
+              {Object.entries(NavigationPages).map(([page, icon]) => {
                 return (
-                  <Link
+                  <div
+                    className="flex items-center gap-1 rounded-sm px-2 py-1 hover:bg-slate-100"
                     key={page}
-                    to={`${page === 'Home' ? '/' : page.toLowerCase()}`}
-                    className="text-muted-foreground hover:text-foreground"
                   >
-                    {page}
-                  </Link>
+                    {icon}
+                    <Link to={`${page === 'Home' ? '/' : page.toLowerCase()}`}>
+                      {page}
+                    </Link>
+                  </div>
                 );
               })}
             </nav>
+            <hr class="h-px border-0 bg-gray-200 dark:bg-gray-700"></hr>
           </SheetContent>
         </Sheet>
-        <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          <div className="relative ml-auto flex-1 sm:flex-initial">
-            <SelectUser />
-          </div>
+        <div className="flex items-center gap-2">
+          <Input placeholder="Search Fakeddit"></Input>
+          <Search />
+        </div>
+        <div className="flex items-center gap-4 md:gap-2 lg:gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
@@ -123,6 +121,8 @@ export default function Navbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <SelectUser />
               <DropdownMenuSeparator />
               <DropdownMenuItem onSelect={(e) => navigateToLink('account')}>
                 Account

@@ -31,13 +31,18 @@ export function ArticleActions({ currentArticle, setCurrentArticle }) {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <Button onClick={changeVoteCount} variant="outline">
-        <ThumbsUpIcon className="w-4 h-4 mr-2" />
+    <div className="xl flex items-center gap-1">
+      <Button
+        onClick={changeVoteCount}
+        variant="outline"
+        size="small"
+        className="p-1 text-xs"
+      >
+        <ThumbsUpIcon className="mr-2 h-3 w-3" />
         Votes: {votes}
       </Button>
-      <Button variant="outline">
-        <MessageSquareIcon className="mr-2 h-4 w-4" />
+      <Button variant="outline" size="small" className="p-1 text-xs">
+        <MessageSquareIcon className="mr-2 h-3 w-3" />
         Comments: {comment_count}
       </Button>
     </div>

@@ -32,7 +32,7 @@ export function Topics() {
   if (error) return <ErrorPage error={error} />;
 
   return (
-    <>
+    <div className="max-h-screen min-h-full">
       <Sort setSortParams={setFilter} />
       {topic ? (
         <h1
@@ -48,6 +48,6 @@ export function Topics() {
         />
       )}
       {filter && topic && <Articles filter={filter} />}
-    </>
+    </div>
   );
 }

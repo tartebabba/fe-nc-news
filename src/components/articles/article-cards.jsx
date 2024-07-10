@@ -26,10 +26,10 @@ export function ArticleCard({ article }) {
   };
 
   return (
-    <Card className="flex items-start gap-6 rounded-lg p-6 shadow-md">
+    <Card className="flex items-start gap-6 rounded-lg p-6 shadow-md hover:bg-slate-50">
       <img
         alt="Article Thumbnail"
-        className="articles-card-img rounded-lg object-cover"
+        className="articles-card-img hidden rounded-lg object-cover md:block "
         height={150}
         src={article_img_url}
         style={{
@@ -39,15 +39,17 @@ export function ArticleCard({ article }) {
         width={200}
       />
       <div className="space-y-2">
-        <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+        <div className="flex items-center text-xs text-slate-500 dark:text-slate-400">
           <span>
             <Link to={`/topics/${topic}`} className="article-card-link">
               f/{topic}
             </Link>
           </span>
         </div>
-        <CardTitle onClick={navigateToArticle}>{title}</CardTitle>
-        <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+        <CardTitle onClick={navigateToArticle} className="text-lg">
+          {title}
+        </CardTitle>
+        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
           <UserIcon className="h-4 w-4" />
           <span>
             <Link to={`/users/${author}`} className="article-card-link">
@@ -58,8 +60,13 @@ export function ArticleCard({ article }) {
           <CalendarDaysIcon className="h-4 w-4" />
           <span> {moment(created_at).format('MMMM Do YYYY')}</span>
         </div>
+        <img
+          alt="Article Thumbnail"
+          className="aspect-video max-h-[25%] rounded-lg object-cover md:hidden"
+          src={article_img_url}
+        />
         <p
-          className="text-gray-700 dark:text-gray-300"
+          className="text-sm text-slate-700 dark:text-slate-300"
           onClick={navigateToArticle}
         >
           {body.substring(0, 140) + '...'}

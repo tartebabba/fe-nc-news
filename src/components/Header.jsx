@@ -3,10 +3,27 @@ import { Link } from 'react-router-dom';
 export default function Header() {
   return (
     <>
-      <header className='text-center place-content-center box-content h-16 dark:bg-[#020617]'>
-        <Link to="/" id="site-name" className=' text-red-600 text-xl font-mono font-bold dark:text-yellow-400'>
-          Fakeddit
+      <header className="relative flex items-center bg-red-600 py-2">
+        <Link
+          to="https://www.jezpie.dev/"
+          id="personal-logo"
+          className="absolute left-2"
+        >
+          <img
+            src="/JP-icon-32x32.png"
+            alt="personal logo"
+            className="h-4 w-4 rounded-md hover:bg-red-500"
+          />
         </Link>
+        <div className="flex-grow text-center">
+          <Link
+            to="/"
+            id="site-name"
+            className="font-mono font-bold text-slate-50"
+          >
+            Fakeddit
+          </Link>
+        </div>
       </header>
     </>
   );
