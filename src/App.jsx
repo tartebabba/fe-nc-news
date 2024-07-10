@@ -21,7 +21,6 @@ function App() {
           <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <Header />
             <Navbar />
-
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
